@@ -1,0 +1,12 @@
+{
+    "name": "voice-reco",
+    "description": "Speech Recognition",
+    "type": "project",
+    "authors": [
+        {
+            "name": "rajpal-se",
+            "email": "ra*****@gmail.com"
+        }
+    ],
+    "require": {}
+}
