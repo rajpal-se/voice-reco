@@ -26,6 +26,10 @@ const path = {
 		src: ['./src/**/*.html'],
 		dest: './public'
 	},
+	images: {
+		src: ['./src/**/*.ico', './src/**/*.jpg', './src/**/*.jpeg', './src/**/*.png', './src/**/*.svg'],
+		dest: './public'
+	},
 	baseDir: {
 		src: './src',
 		dest: './public'
@@ -59,6 +63,7 @@ const copy = (() => {
 	}
 
 	ret.htmlFiles = _copyFiles( path.html.src, path.html.dest )
+	ret.imagesFiles = _copyFiles( path.images.src, path.images.dest )
 
 	return ret
 })()
@@ -95,6 +100,7 @@ const expObj = (() => {
 	
 		gulp.watch( path.style.src , ret.style)
 		gulp.watch( path.html.src , copy.htmlFiles)
+		gulp.watch( path.images.src , copy.imagesFiles)
 		gulp.watch( path.script.src, {}, gulp.series(ret.script) )
 		// .on('change', file => {
 		// 	console.log(file)	
@@ -124,7 +130,8 @@ const expObj = (() => {
 			gulp.parallel(
 				style,
 				script,
-				copy.htmlFiles
+				copy.htmlFiles,
+				copy.imagesFiles
 			)
 		)
 	})()
