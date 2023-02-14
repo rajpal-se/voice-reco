@@ -4,7 +4,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const rootFolder = path.resolve(__dirname, '.');
 const port = process.env.PORT || 3000;
-const mode = process.env.MODE || 'development';
+const mode =
+	(process.argv.includes('--mode=production') && 'production') ||
+	'development';
 const isDevelopmentMode = mode === 'development';
 const paths = {
 	src: path.resolve(rootFolder, 'src'),
@@ -34,6 +36,7 @@ const devServerConfig = isDevelopmentMode
 					},
 				},
 			},
+			devtool: 'source-map',
 	  }
 	: {};
 
@@ -76,6 +79,7 @@ const exportsConfig = {
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
 			template: 'src/index.template.html',
+			inject: false, // To remove duplicate consoles.		(https://stackoverflow.com/a/38292765)
 		}),
 		new CopyWebpackPlugin({
 			patterns: [{ from: paths.public, to: paths.build }],

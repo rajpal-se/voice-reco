@@ -1,57 +1,51 @@
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Speech Recognition</title>
-		<link rel="icon" href="/static/icon/voice-reco.png" type="image/gif" sizes="16x16">
+		<link
+			rel="icon"
+			href="/static/icon/voice-reco.png"
+			type="image/gif"
+			sizes="16x16"
+		/>
 	</head>
 	<body>
 		<div id="mainCon">
 			<div id="controls">
 				<div>
-					<select id="selectLang"><option value="0">Arabic</option><option value="1">Bengali (Bangla)</option><option value="2">Bihari</option><option value="3">Chinese</option><option value="4">Chinese (Simplified)</option><option value="5">Chinese (Traditional)</option><option value="6">Czech</option><option value="7">Dutch</option><option value="8">English (US)</option><option value="9" selected="true">English (UK)</option><option value="10">French</option><option value="11">Greek</option><option value="12">Gujarati</option><option value="13">Hindi</option><option value="14">Indonesian</option><option value="15">Italian</option><option value="16">Japanese</option><option value="17">Latin</option><option value="18">Nepali</option><option value="19">Polish</option><option value="20">Portuguese</option><option value="21">Punjabi (Eastern)</option><option value="22">Russian</option><option value="23">Sanskrit</option><option value="24">Spanish</option><option value="25">Swedish</option><option value="26">Tamil</option><option value="27">Telugu</option><option value="28">Thai</option><option value="29">Tibetan</option><option value="30">Turkish</option><option value="31">Ukrainian</option><option value="32">Urdu</option><option value="33">Vietnamese</option><option value="34">Zulu</option></select>
+					<select id="selectLang"></select>
 					<button id="startBtn">Start</button>
 					<button id="resetBtn">Reset</button>
 					<button id="helpBtn">?</button>
 				</div>
 			</div>
-			<div id="outputCon" contenteditable="true"><p class="selected"><span class="listened"></span><span> </span><span class="listening"><br></span></p></div>
+			<div id="outputCon" contenteditable="true"></div>
 			<!--
 				<div id="outputCon" contenteditable="true">
-					<p>
-						<span class="listened">This text is OK</span><span>&nbsp;</span><span class="listening">This is listening.</span>
+					<p class="line">
+						<span class="listened">This text is OK</span>
 					</p>
-					<p class="selected">
-						<span class="listened">This text is OK</span><span>&nbsp;</span><span class="listening">This is listening.</span>
-					</p>
-					<p>
-						<span class="listened">This text is OK</span><span>&nbsp;</span><span class="listening">This is listening.</span>
+					<p class="line selected">
+						<span class="listened">This text is OK</span><p id="newTextEleRef">.....</p>
 					</p>
 				</div>
 			-->
-		</div>
-		<div id="messsCon">
-			<div id="toastCon">
-				<!--
-				<div class="message active"><div class="text">Entered</div></div>
-				<div class="message active"><div class="text">Entered</div></div>
-				<div class="message active"><div class="text">Entered</div></div>
-				<div class="message active"><div class="text">Entered</div></div>
-				-->
-			</div>
 		</div>
 		<div id="guideCon" class="show">
 			<button id="guideCloseBtn">X</button>
 			<div class="main">
 				<div class="logo">
-					<img src="static/icon/logo.png">
+					<img src="static/icon/logo.png" />
 				</div>
 				<h1 class="heading">Voice Reco</h1>
 				<p class="para1">
-					<b>Voice Reco</b> is a Speech Recognition web app. It respond to the
-					sounds produced by human speech and transcripts into text.
-					<br>
-					This app supports multiple languages: <i>English, French, Hindi, Urdu, etc.</i>
+					<b>Voice Reco</b> is a Speech Recognition web app. It
+					respond to the sounds produced by human speech and
+					transcripts into text.
+					<br />
+					This app supports multiple languages:
+					<i>English, French, Hindi, Urdu, etc.</i>
 				</p>
 				<h2 class="heading2">Voice Commands</h2>
 				<ul class="commandsList">
@@ -76,6 +70,10 @@
 						<span>Copy to clipborad as HTML.</span>
 					</li>
 				</ul>
+				<p class="note">
+					<b>*Note:</b> Voice commands work with English language
+					only.
+				</p>
 				<div class="emptySpace"></div>
 			</div>
 		</div>

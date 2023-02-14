@@ -1,20 +1,21 @@
-*{
+* {
 	box-sizing: border-box;
 }
-html, body{
+html,
+body {
 	margin: 0px;
 	padding: 0px;
 }
 
-#mainCon{
+#mainCon {
 	background-color: silver;
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	width: 100%;
 	height: 0px;
-	
-	#controls{
+
+	#controls {
 		background-color: #e91e63;
 		height: 70px;
 		position: absolute;
@@ -25,41 +26,49 @@ html, body{
 		justify-content: center;
 		align-items: center;
 
-		div{
+		div {
 			min-width: 350px;
 			user-select: none;
 			text-align: center;
 
-			select{
-				width: 120px;
+			select {
+				width: 140px;
 				font-size: 14px;
 				padding: 6px;
 				cursor: pointer;
 				color: #e91e63;
-				
-				option{
+
+				option {
 					color: #666666;
 				}
-				option[selected="true"]{
+				option[selected='true'] {
 					color: white;
 					background-color: #e91e63;
 				}
+				&:focus {
+					outline: 2px solid #00000066;
+				}
 			}
-			#startBtn, #resetBtn, #helpBtn{
+			#startBtn,
+			#resetBtn,
+			#helpBtn {
 				width: 60px;
 				margin-left: 10px;
 				font-size: 15px;
 				padding: 5px 8px;
 				cursor: pointer;
+				&:focus {
+					outline: 2px solid #00000066;
+				}
 			}
-			#helpBtn{
+			#helpBtn {
 				padding: 5px;
 				width: 30px;
 				cursor: pointer;
 			}
 		}
 	}
-	#outputCon{
+	#outputCon {
 		background-color: #f0f0f0;
 		padding: 15px;
 		padding-bottom: 50px;
@@ -71,116 +80,44 @@ html, body{
 		// min-height: calc(100vh - 70px);
 		height: calc(100vh - 70px);
 		overflow-y: auto;
-		
-		p{
+
+		p.line {
 			background-color: white;
 			padding: 8px 10px;
 			margin: 0px auto;
 			border: 1px solid #d9d9d9;
 			border-bottom: none;
 			max-width: 650px;
+			min-height: 35px;
 
-			&.selected{
+			&.selected {
 				border-color: red;
 			}
-			&.selected + p{
+			&.selected + p {
 				border-top-color: red;
 			}
 
-			span.listening{
-				font-weight: bold;
-			}
+			// span.listening {
+			// 	font-weight: bold;
+			// }
 		}
 
-		p:last-child{
+		p.line:last-child {
 			border-bottom: 1px solid #d9d9d9;
 		}
-		p.selected:last-child{
+		p.line.selected:last-child {
 			border-bottom: 1px solid red;
 		}
 	}
 }
 
-#messsCon{
-	width: 220px;
-	display: inline-block;
-	height: fit-content;
-	overflow: hidden;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	font-family: monospace;
-	font-size: 16px;
-	// background-color: red;
-
-	#toastCon{
-		width: 100%;
-		position: relative;
-		top: 0px;
-		left: 0px;
-		transition: top 700ms cubic-bezier(0.15, 0.66, 0.47, 0.84) 0s;
-		// Note: Animation duration is linked with JS
-		
-		.message{
-			width: 100%;;
-			position: relative;
-			top: 0px;
-			color: white;
-			left: 0px;
-			overflow: hidden;
-			padding: 5px;
-			padding-top: unset;
-			// background-color: pink;
-
-			&:first-child{
-				padding-top: 5px;
-			}
-	
-			&.active{
-				animation: aniMessageShow 200ms cubic-bezier(0.49, 0.14, 1, 0.58) 0s;
-			}
-
-			.text{
-				position: relative;
-				top: 0px;
-				background-color: #6d6d6d;
-				width: 100%;
-				border: 1px solid black;
-				border-radius: 5px;
-				color: white;
-				padding: 15px;
-				overflow: hidden;
-			}
-		}
-	}
-}
-@keyframes aniMessageShow{
-	0%{
-		transform: translate(-100%);
-	}
-	100%{
-		transform: translate(0%);
-	}
-}
-@keyframes aniMessageHide{
-	from{
-		height: fit-content;
-	}
-	100%{
-		padding-top: 0px;
-		padding-bottom: 0px;
-		height: 0px;
-	}
-}
-
 @media screen and (max-width: 500px) {
-	#mainCon{
-		
-		#controls{
+	#mainCon {
+		#controls {
 			top: calc(100vh - 70px);
 			// background-color: red;
 		}
-		#outputCon{
+		#outputCon {
 			// background-color: blue;
 			top: 0px;
 			padding-bottom: 15px;
@@ -188,9 +125,7 @@ html, body{
 	}
 }
 
-
-
-#guideCon{
+#guideCon {
 	overflow-y: hidden;
 	height: 0vh;
 	width: 100vw;
@@ -201,7 +136,7 @@ html, body{
 	// transition: left 200ms ease-in;
 	z-index: 100;
 
-	#guideCloseBtn{
+	#guideCloseBtn {
 		font-weight: bold;
 		padding: 10px 12px;
 		position: absolute;
@@ -211,9 +146,10 @@ html, body{
 		cursor: pointer;
 		// border-color: red;
 		z-index: 101;
+		user-select: none;
 	}
 
-	.main{
+	.main {
 		position: absolute;
 		top: 0px;
 		left: 0px;
@@ -223,20 +159,22 @@ html, body{
 		flex-direction: column;
 		font-family: sans-serif;
 
-		.logo{
+		.logo {
 			height: 100px;
 			align-self: center;
-			
-			img{
+			user-select: none;
+
+			img {
 				height: 100%;
 			}
 		}
 
-		.heading{
+		.heading {
 			text-align: center;
 			color: #e91e63;
+			user-select: none;
 		}
-		.para1{
+		.para1 {
 			margin-top: 0px;
 			padding: 0px 15px;
 			color: #919191;
@@ -247,12 +185,13 @@ html, body{
 			max-width: 600px;
 			align-self: center;
 		}
-		.heading2{
+		.heading2 {
 			text-align: center;
 			margin-top: 8px;
 			color: #e91e63;
+			user-select: none;
 		}
-		.commandsList{
+		.commandsList {
 			margin: 0px;
 			padding: 0px;
 			list-style-type: none;
@@ -260,41 +199,48 @@ html, body{
 			background-color: white;
 			display: table;
 
-			li{
+			li {
 				margin: 0px;
 				padding: 0px;
 				font-size: 15px;
 				margin-bottom: 15px;
 				display: table-row;
-				span{
+				span {
 					display: table-cell;
 					padding: 10px 6px;
 					border-bottom: 1px dotted gray;
 					white-space: nowrap;
 				}
-				span:nth-child(1){
+				span:nth-child(1) {
 					font-weight: bold;
 					margin-bottom: 4px;
 					color: #9c27b0;
+					user-select: none;
 				}
-				span:nth-child(2){
+				span:nth-child(2) {
 					color: #606060;
 					font-style: italic;
 				}
 
-				&:last-child{
-					span{
+				&:last-child {
+					span {
 						border-bottom: unset;
 					}
 				}
 			}
 		}
-		.emptySpace{
-			height: 100px
+		.note {
+			text-align: center;
+			font-size: 14px;
+			font-style: italic;
+			margin-top: 30px;
+		}
+		.emptySpace {
+			height: 100px;
 		}
 	}
 
-	&.show{
+	&.show {
 		left: 0px;
 		overflow-y: auto;
 		height: 100vh;
@@ -302,19 +248,28 @@ html, body{
 }
 
 @media screen and (max-width: 400px) {
-	#guideCon{
-		.main{
-			.commandsList{
+	#mainCon {
+		#controls {
+			div {
+				select {
+					width: 120px;
+				}
+			}
+		}
+	}
+	#guideCon {
+		.main {
+			.commandsList {
 				display: block;
 				align-self: flex-start;
 				padding: 0px 20px;
-				
-				li{
-				display: block;
-				margin: 0px;
-				margin-bottom: 15px;
-					
-					span{
+
+				li {
+					display: block;
+					margin: 0px;
+					margin-bottom: 15px;
+
+					span {
 						display: block;
 						border-bottom: unset;
 						padding: 0px;
@@ -322,5 +277,164 @@ html, body{
 				}
 			}
 		}
+	}
+}
+
+/* newTextEleRef (Speech functionality - on change) */
+
+#newTextEleRef {
+	display: inline;
+
+	.previousSentence {
+		font-weight: bold;
+	}
+	.newWords {
+		font-weight: bold;
+		font-style: italic;
+	}
+	.newSentence {
+	}
+}
+
+/* Toast JS */
+
+#toastCon {
+	width: 320px;
+	display: inline-block;
+	height: fit-content;
+	overflow: hidden;
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	font-family: monospace;
+	font-size: 16px;
+	// background-color: red;
+	// outline: 1px solid green;
+	// height: 100px;
+
+	.toastWrapper {
+		position: relative;
+		width: 100%;
+		padding: 10px;
+		transform: scale(0);
+		&.animationAdd {
+			animation: animationAddKF 300ms ease-out 0s forwards;
+		}
+		&.animationRemove {
+			animation: animationRemoveKF 500ms ease-in 0s forwards;
+		}
+
+		&:not(:first-child) {
+			padding-top: 0px;
+		}
+		.toast {
+			width: 100%;
+			position: relative;
+			top: 0px;
+			color: #0277bd;
+			left: 0px;
+			overflow: hidden;
+			padding: 15px 50px 15px 18px;
+			background-color: #e5f7ff;
+			border: 1px solid #29b6f6;
+			border-radius: 12px;
+			font-size: 15px;
+			line-height: 20px;
+
+			$closeBtnColor: #03a9f4;
+
+			.close {
+				cursor: pointer;
+				position: absolute;
+				top: 50%;
+				right: 7px;
+				transform: translate(-50%, -50%);
+				height: 20px;
+				width: 20px;
+				border: 1px solid $closeBtnColor;
+				border-radius: 3px;
+
+				&::after,
+				&::before {
+					content: '';
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%) rotate(45deg);
+					height: 14px;
+					width: 2px;
+					background-color: $closeBtnColor;
+					transform-origin: center center;
+				}
+
+				&::after {
+					transform: translate(-50%, -50%) rotate(-45deg);
+				}
+
+				&:active {
+					top: calc(50% + 1px);
+				}
+			}
+
+			&.success {
+				color: #388e3c;
+				background-color: #e8f5e9;
+				border: 1px solid #388e3c;
+				$closeBtnColor: #43a047;
+				.close {
+					border: 1px solid $closeBtnColor;
+					&::after,
+					&::before {
+						background-color: $closeBtnColor;
+					}
+				}
+			}
+			&.danger {
+				color: #d81b60;
+				background-color: #fce4ec;
+				border: 1px solid #d81b60;
+				$closeBtnColor: #d81b60;
+				.close {
+					border: 1px solid $closeBtnColor;
+					&::after,
+					&::before {
+						background-color: $closeBtnColor;
+					}
+				}
+			}
+
+			&:first-child {
+				// padding-top: 5px;
+			}
+
+			&.active {
+				animation: aniMessageShow 200ms
+					cubic-bezier(0.49, 0.14, 1, 0.58) 0s;
+			}
+		}
+	}
+}
+
+@keyframes animationAddKF {
+	0% {
+		transform: scale(0);
+	}
+	80% {
+		transform: scale(1.06);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes animationRemoveKF {
+	0% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(-5%) scale(1);
+	}
+	100% {
+		transform: translateX(70%) scale(0);
 	}
 }
