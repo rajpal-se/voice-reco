@@ -3,7 +3,7 @@
 	"version": "2.0.0",
 	"description": "TransScripts your voice",
 	"scripts": {
-		"start": "webpack serve --port 5015",
+		"start": "webpack serve --port 5015 -o ./build",
 		"build": "webpack --mode=production"
 	},
 	"author": "rajpal-se",

@@ -13,9 +13,7 @@ const OutputApi = () => {
 		obj.selectedLineRef = lineRef;
 		obj.selectedLineListenedEleRef = lineRef.querySelector('.listened');
 		obj.selectedLineListenedEleRef?.after(obj.newTextEleRef.wrapper);
-		[...obj.outputCon.querySelectorAll('p.line.selected')].forEach((line) =>
-			line.classList.remove('selected')
-		);
+		[...obj.outputCon.querySelectorAll('p.line.selected')].forEach((line) => line.classList.remove('selected'));
 		lineRef.classList.add('selected');
 
 		window.getSelection().selectAllChildren(obj.selectedLineRef);
@@ -24,8 +22,7 @@ const OutputApi = () => {
 
 	obj.selectSelectedLine = () => {
 		// debugger;
-		const allSelectedLines =
-			obj.outputCon.querySelectorAll('p.line.selected');
+		const allSelectedLines = obj.outputCon.querySelectorAll('p.line.selected');
 		if (allSelectedLines.length) {
 			obj.selectLine(allSelectedLines[allSelectedLines.length - 1]);
 		} else {
@@ -48,10 +45,7 @@ const OutputApi = () => {
 		try {
 			obj.selectedLineRef.after(newLineEle);
 		} catch (e) {
-			if (
-				e.message.toLowerCase() ===
-				`Cannot read properties of null (reading 'after')`.toLowerCase()
-			) {
+			if (e.message.toLowerCase() === `Cannot read properties of null (reading 'after')`.toLowerCase()) {
 				obj.outputCon.append(newLineEle);
 			}
 			// console.log(e.message);
@@ -64,9 +58,7 @@ const OutputApi = () => {
 
 		// console.log('call');
 		// console.log(innerHTML);
-		const lines = innerHTML
-			.replace(/<p id="newTextEleRef".*?<\/p>/g, '')
-			.replace(/<\/p>.*?<p/g, '</p>\n<p');
+		const lines = innerHTML.replace(/<p id="newTextEleRef".*?<\/p>/g, '').replace(/<\/p>.*?<p/g, '</p>\n<p');
 		window.localStorage.setItem('voice-reco-data', lines);
 	};
 
@@ -110,25 +102,15 @@ const OutputApi = () => {
 				// console.log(mutationList, observer);
 				for (const mutation of mutationList) {
 					if (mutation.type === 'childList') {
-						const allSelectedLines =
-							obj.outputCon.querySelectorAll('p.line.selected');
+						const allSelectedLines = obj.outputCon.querySelectorAll('p.line.selected');
 						if (allSelectedLines.length > 1) {
-							[...allSelectedLines].forEach((line) =>
-								line.classList.remove('selected')
-							);
+							[...allSelectedLines].forEach((line) => line.classList.remove('selected'));
 							let lineToBeSelected = null;
 							const selection = window.getSelection();
-							if (
-								selection.anchorNode.nodeName.toLowerCase() ===
-								'#text'
-							) {
-								lineToBeSelected =
-									selection.anchorNode.parentElement.closest(
-										'p.line'
-									);
+							if (selection.anchorNode.nodeName.toLowerCase() === '#text') {
+								lineToBeSelected = selection.anchorNode.parentElement.closest('p.line');
 							} else {
-								lineToBeSelected =
-									selection.anchorNode.closest('p.line');
+								lineToBeSelected = selection.anchorNode.closest('p.line');
 							}
 							if (lineToBeSelected) {
 								obj.selectLine(lineToBeSelected);
@@ -143,8 +125,7 @@ const OutputApi = () => {
 		}
 
 		{
-			const voiceRecoData =
-				window.localStorage.getItem('voice-reco-data');
+			const voiceRecoData = window.localStorage.getItem('voice-reco-data');
 			if (voiceRecoData) {
 				obj.outputCon.innerHTML = voiceRecoData;
 			} else {
@@ -156,9 +137,7 @@ const OutputApi = () => {
 				const clickedLine = e.target.closest('p.line');
 				if (clickedLine) {
 					obj.selectLine(clickedLine);
-					window
-						.getSelection()
-						.selectAllChildren(obj.selectedLineRef);
+					window.getSelection().selectAllChildren(obj.selectedLineRef);
 					window.getSelection().collapseToEnd();
 				}
 			});
@@ -166,24 +145,12 @@ const OutputApi = () => {
 				if (e.code.toLowerCase() === 'enter') {
 					let preventDefault = false;
 					const selection = window.getSelection();
-					if (
-						selection.anchorNode.nodeName.toLowerCase() === '#text'
-					) {
-						if (
-							!selection.anchorNode.parentElement.classList.contains(
-								'listened'
-							)
-						) {
+					if (selection.anchorNode.nodeName.toLowerCase() === '#text') {
+						if (!selection.anchorNode.parentElement.classList.contains('listened')) {
 							preventDefault = true;
 						}
-					} else if (
-						selection.anchorNode.nodeName.toLowerCase() === 'span'
-					) {
-						if (
-							!selection.anchorNode.parentElement.classList.contains(
-								'line'
-							)
-						) {
+					} else if (selection.anchorNode.nodeName.toLowerCase() === 'span') {
+						if (!selection.anchorNode.parentElement.classList.contains('line')) {
 							preventDefault = true;
 						}
 					} else {
@@ -216,8 +183,7 @@ const OutputApi = () => {
 			speechText.newWords !== lastSpeech.newWords ||
 			speechText.newSentence !== lastSpeech.newSentence
 		) {
-			obj.newTextEleRef.previousSentence.innerText =
-				speechText.previousSentence;
+			obj.newTextEleRef.previousSentence.innerText = speechText.previousSentence;
 			obj.newTextEleRef.newWords.innerText = speechText.newWords;
 			obj.newTextEleRef.newSentence.innerText = speechText.newSentence;
 
@@ -228,53 +194,35 @@ const OutputApi = () => {
 
 			isCommand && speechRecognitionApp && speechRecognitionApp.restart();
 
-			if (
-				!speechText.previousSentence &&
-				!speechText.newWords &&
-				!speechText.newSentence
-			) {
+			if (!speechText.previousSentence && !speechText.newWords && !speechText.newSentence) {
 				const lastNewText = lastSpeech.newSentence.toLowerCase();
-				const isCommand = Object.keys(obj.commands).includes(
-					lastNewText
-				);
+				const isCommand = Object.keys(obj.commands).includes(lastNewText);
 				// 	debugger;
 				// 	console.log('zzz comand', isCommand);
 				if (isCommand) {
 					if (typeof obj.commands?.[lastNewText] === 'function') {
-						obj.commands?.[lastNewText].call(
-							undefined,
-							lastNewText
-						);
+						obj.commands?.[lastNewText].call(undefined, lastNewText);
 						speechRecognitionApp && speechRecognitionApp.restart();
 					}
 				} else {
 					if (lastSpeech.newSentence) {
-						const listenedEleRef =
-							obj.selectedLineRef.querySelector('.listened');
+						const listenedEleRef = obj.selectedLineRef.querySelector('.listened');
 						if (listenedEleRef?.innerText) {
 							if (listenedEleRef.innerText.slice(-2) === '. ') {
-								listenedEleRef.innerHTML +=
-									lastSpeech.newSentence;
-							} else if (
-								listenedEleRef.innerText.slice(-1) === '.'
-							) {
+								listenedEleRef.innerHTML += lastSpeech.newSentence;
+							} else if (listenedEleRef.innerText.slice(-1) === '.') {
 								listenedEleRef.innerHTML += ' ';
 								listenedEleRef.innerHTML +=
-									lastSpeech.newSentence
-										.charAt(0)
-										.toUpperCase() +
-									lastSpeech.newSentence.slice(1);
+									lastSpeech.newSentence.charAt(0).toUpperCase() + lastSpeech.newSentence.slice(1);
 							} else {
 								{
 									listenedEleRef.innerHTML += ' ';
-									listenedEleRef.innerHTML +=
-										lastSpeech.newSentence;
+									listenedEleRef.innerHTML += lastSpeech.newSentence;
 								}
 							}
 						} else {
 							listenedEleRef.innerHTML +=
-								lastSpeech.newSentence.charAt(0).toUpperCase() +
-								lastSpeech.newSentence.slice(1);
+								lastSpeech.newSentence.charAt(0).toUpperCase() + lastSpeech.newSentence.slice(1);
 						}
 					}
 				}
@@ -304,10 +252,9 @@ const OutputApi = () => {
 		obj.addNewLine();
 	};
 	obj.commands['cut cut'] = (_command) => {
-		obj.selectedLineListenedEleRef.innerHTML =
-			obj.selectedLineListenedEleRef.innerText
-				.trim()
-				.replace(/\W?\w+\W?$/, '');
+		obj.selectedLineListenedEleRef.innerHTML = obj.selectedLineListenedEleRef.innerText
+			.trim()
+			.replace(/\W?\w+\W?$/, '');
 	};
 	obj.commands['full stop'] = (_command) => {
 		obj.selectedLineListenedEleRef.innerHTML += '. ';
@@ -316,18 +263,13 @@ const OutputApi = () => {
 		const allLines = obj.outputCon.querySelectorAll('p.line');
 		const texts = [...allLines].map((line) => {
 			const text = line.innerText.trim();
-			return (
-				text.charAt(0).toUpperCase() +
-				text.slice(1).replace(/\.+$/, '.')
-			);
+			return text.charAt(0).toUpperCase() + text.slice(1).replace(/\.+$/, '.');
 		});
 		if (document.hasFocus()) {
 			try {
-				window.navigator.clipboard
-					.writeText(texts.join('\n'))
-					.then(() => {
-						obj.toast.message('Text copied', 'success', 3000);
-					});
+				window.navigator.clipboard.writeText(texts.join('\n')).then(() => {
+					obj.toast.message('Text copied', 'success', 3000);
+				});
 			} catch (_e) {}
 		} else {
 			obj.toast.message('Focus the webpage first.', 'danger', 5000);
@@ -345,15 +287,9 @@ const OutputApi = () => {
 		container.append(...pTags);
 		if (document.hasFocus()) {
 			try {
-				window.navigator.clipboard
-					.writeText([container.innerHTML])
-					.then(() => {
-						obj.toast.message(
-							'HTML copied successfully!',
-							'success',
-							3000
-						);
-					});
+				window.navigator.clipboard.writeText([container.innerHTML.replace(/\/p><p/g, '/p>\n<p')]).then(() => {
+					obj.toast.message('HTML copied successfully!', 'success', 3000);
+				});
 			} catch (_e) {}
 		} else {
 			obj.toast.message('Focus the webpage first.', 'danger', 5000);

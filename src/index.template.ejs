@@ -1,14 +1,14 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Speech Recognition</title>
+		<title><%= htmlWebpackPlugin.options.title %></title>
 		<link
 			rel="icon"
-			href="/static/icon/voice-reco.png"
+			href="<%= htmlWebpackPlugin.options.options.rootUrl %>/static/icon/voice-reco.png"
 			type="image/gif"
 			sizes="16x16"
 		/>
+		<%= htmlWebpackPlugin.tags.headTags.filter((tag) => tag.tagName === 'meta').join('') %>
 	</head>
 	<body>
 		<div id="mainCon">
@@ -36,13 +36,12 @@
 			<button id="guideCloseBtn">X</button>
 			<div class="main">
 				<div class="logo">
-					<img src="static/icon/logo.png" />
+					<img src="<%= htmlWebpackPlugin.options.options.rootUrl %>/static/icon/logo.png" />
 				</div>
-				<h1 class="heading">Voice Reco</h1>
+				<h1 class="heading">Voice Recop</h1>
 				<p class="para1">
-					<b>Voice Reco</b> is a Speech Recognition web app. It
-					respond to the sounds produced by human speech and
-					transcripts into text.
+					<b>Voice Reco</b> is a Speech Recognition web app. It respond to the sounds produced by human speech
+					and transcripts into text.
 					<br />
 					This app supports multiple languages:
 					<i>English, French, Hindi, Urdu, etc.</i>
@@ -70,13 +69,12 @@
 						<span>Copy to clipborad as HTML.</span>
 					</li>
 				</ul>
-				<p class="note">
-					<b>*Note:</b> Voice commands work with English language
-					only.
-				</p>
+				<p class="note"><b>*Note:</b> Voice commands work with English language only.</p>
 				<div class="emptySpace"></div>
 			</div>
 		</div>
-		<script src="main.js"></script>
+		<%= htmlWebpackPlugin.tags.headTags.filter((tag) => tag.tagName === 'script').map(tag => { tag.attributes.src =
+		`${htmlWebpackPlugin.options.options.rootUrl}/${tag.attributes.src.replace(/^(\/|\\)+/, '')}`; return tag;
+		}).join('') %>
 	</body>
 </html>

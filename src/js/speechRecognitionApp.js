@@ -33,11 +33,7 @@ const SpeechRecognitionApp = () => {
 	};
 
 	obj.setLanguage = (languageCode, callback) => {
-		if (
-			obj.availableLanguages.find(
-				(items) => items[0].toLowerCase() === languageCode.toLowerCase()
-			)
-		) {
+		if (obj.availableLanguages.find((items) => items[0].toLowerCase() === languageCode.toLowerCase())) {
 			// Script to after language change
 
 			// Assign new language code
@@ -81,9 +77,7 @@ const SpeechRecognitionApp = () => {
 			'oSpeechRecognition',
 		]; // speech recognition object
 
-		const speechRecognitionApi = speechRecognitionApis.find(
-			(api) => api in window
-		);
+		const speechRecognitionApi = speechRecognitionApis.find((api) => api in window);
 
 		if (speechRecognitionApi) {
 			obj.speechRecognition = new window[speechRecognitionApi]();
@@ -105,8 +99,7 @@ const SpeechRecognitionApp = () => {
 				// const color = event.results[0][0].transcript;
 				// diagnostic.textContent = `Result received: ${color}.`;
 				// bg.style.backgroundColor = color;
-				if (typeof obj.onResult === 'function')
-					obj.onResult.call(obj, obj.speechText);
+				if (typeof obj.onResult === 'function') obj.onResult.call(obj, obj.speechText);
 			};
 
 			obj.speechRecognition.onend = () => {
@@ -115,8 +108,7 @@ const SpeechRecognitionApp = () => {
 					newWords: '',
 					newSentence: '',
 				};
-				if (typeof obj.onResult === 'function')
-					obj.onResult.call(obj, obj.speechText);
+				if (typeof obj.onResult === 'function') obj.onResult.call(obj, obj.speechText);
 				if (obj.isListening) {
 					obj.speechRecognition.start();
 				}

@@ -2,3 +2,7 @@ local*
 node_modules*
 .vscode*
 build
+
+.dockerignore
+Dockerfile*
+docker-compose*.yml
