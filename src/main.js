@@ -25,10 +25,7 @@ const outputApi = new OutputApi();
 outputApi.toast = toast;
 
 /* Display Guide page only once */
-const isGuideDone =
-	window.localStorage.getItem('isGuideDone')?.toLowerCase() === 'true'
-		? true
-		: false;
+const isGuideDone = window.localStorage.getItem('isGuideDone')?.toLowerCase() === 'true' ? true : false;
 isGuideDone && guideCon.classList.toggle('show');
 
 let connectionLostToast = null;
@@ -54,19 +51,11 @@ ns.onChange = (isOnline, totalCalls) => {
 			}
 			toast.message(`You are connected.`, 'success', 5000);
 		} else {
-			connectionLostToast = toast.message(
-				`Connection lost.`,
-				'danger',
-				0
-			);
+			connectionLostToast = toast.message(`Connection lost.`, 'danger', 0);
 		}
 	} else {
 		if (!isOnline) {
-			connectionLostToast = toast.message(
-				`Internet is required.`,
-				'danger',
-				0
-			);
+			connectionLostToast = toast.message(`Internet is required.`, 'danger', 0);
 		}
 	}
 };
@@ -106,17 +95,13 @@ resetBtn.on('click', () => {
 	outputApi.addNewLine();
 	// outputApi.selectedLineListenedEleRef.innerText = 'new line';
 
-	Array.from(
-		outputApi.outputCon.querySelectorAll('p.line:not(.selected)')
-	).map((line) => line.remove());
+	Array.from(outputApi.outputCon.querySelectorAll('p.line:not(.selected)')).map((line) => line.remove());
 	window.localStorage.removeItem('voice-reco-data');
 });
 
 selectLang.on('change', (e) => {
 	srApp.setLanguage(e.target.value);
-	const lang = availableLanguages.find(
-		(item) => item[0]?.toLowerCase() === e.target.value?.toLowerCase()
-	)?.[1];
+	const lang = availableLanguages.find((item) => item[0]?.toLowerCase() === e.target.value?.toLowerCase())?.[1];
 	toast.message(`Language switched to ${lang}`, 2000);
 });
 

@@ -16,21 +16,6 @@ const paths = {
 	root: rootFolder,
 };
 
-const cleanTheFolder = (folderPath) => {
-	if (fs.existsSync(folderPath)) {
-		const files = fs.readdirSync(folderPath);
-		for (const file of files) {
-			const filePath = path.resolve(folderPath, file);
-			if (fs.statSync(filePath).isFile()) {
-				fs.unlinkSync(filePath);
-			} else {
-				fs.rmdirSync(filePath, { recursive: true });
-			}
-		}
-	}
-};
-
-cleanTheFolder(paths.build);
 // console.log(rootFolder, paths, port, ROOT_URL);
 const devServerConfig = isDevelopmentMode
 	? {
@@ -40,7 +25,7 @@ const devServerConfig = isDevelopmentMode
 				},
 				port,
 				open: true,
-				hot: true,
+				hot: false,
 				compress: true,
 				historyApiFallback: true,
 				liveReload: true,
@@ -61,9 +46,6 @@ const devServerConfig = isDevelopmentMode
 					console.log('');
 					console.log('\n', 'Listening on port: ', `http://localhost:${port}`, '\n');
 				},
-				devMiddleware: {
-					writeToDisk: true,
-				},
 			},
 			devtool: 'source-map',
 	  }
@@ -78,7 +60,8 @@ const exportsConfig = {
 	context: paths.root,
 	watchOptions: {
 		ignored: '**/node_modules',
-		poll: 200,
+		aggregateTimeout: 200,
+		poll: 1000,
 	},
 	output: {
 		filename: '[name].js',
