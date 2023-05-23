@@ -22,3 +22,5 @@ Voice Reco is an intelligent Speech Recognition tool that efficiently transcribe
 #### Technologies used
 
 HTML, CSS, JavaScript, and Webpack.
+
+<!-- Images: https://imgur.com/a/mZdhV5S -->
